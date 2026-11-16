@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+  <h1>Users</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Alias</th>
+      <th>Role</th>
+      <th>Devices borrowed</th>
+      {% if user.is_admin() %}<th>Actions</th>{% endif %}
+    </tr>
+    {% for person in all_users %}
+      <tr>
+        <td>{{ person.name }}</td>
+        <td>{{ person.alias }}</td>
+        <td>{{ person.role }}</td>
+        <td>{{ borrowed_counts[person.user_id] }}</td>
+        {% if user.is_admin() %}
+          <td>
+            <!-- Admins can change anyone's role except their own -->
+            {% if person.user_id != user.user_id %}
+              <form action="{{ url_for('change_role', user_id=person.user_id) }}" method="post"
+                    onsubmit="return confirm('Change the role of this user?');">
+                <button type="submit">
+                  {% if person.is_admin() %}Make regular{% else %}Make admin{% endif %}
+                </button>
+              </form>
+              <!-- Delete only shows for users with no borrowed devices -->
+              {% if borrowed_counts[person.user_id] == 0 %}
+                <form action="{{ url_for('delete_user', user_id=person.user_id) }}" method="post"
+                      onsubmit="return confirm('Delete this user? This cannot be undone.');">
+                  <button type="submit">Delete</button>
+                </form>
+              {% endif %}
+            {% endif %}
+          </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Check out device{% endblock %}
+{% block content %}
+  <h1>Check out {{ device.model_name }} ({{ device.asset_tag }})</h1>
+  <form method="post">
+    <label for="borrower_id">Who is borrowing it?</label>
+    <!-- A drop-down list of every user. The value sent is the user's id. -->
+    <select id="borrower_id" name="borrower_id" required>
+      {% for person in all_users %}
+        <option value="{{ person.user_id }}"
+                {% if borrower_id == person.user_id|string %}selected{% endif %}>
+          {{ person.name }} ({{ person.alias }})
+        </option>
+      {% endfor %}
+    </select>
+
+    <label for="desk_location">Desk location (e.g. Desk 4.12)</label>
+    <input id="desk_location" name="desk_location" value="{{ desk_location }}" maxlength="20" required>
+
+    <!-- type="date" shows a calendar picker in the browser -->
+    <label for="due_date">Due back on</label>
+    <input id="due_date" name="due_date" type="date" value="{{ due_date }}" required>
+
+    <button type="submit">Check out</button>
+  </form>
+  <p><a href="{{ url_for('devices') }}">Back to devices</a></p>
+{% endblock %}

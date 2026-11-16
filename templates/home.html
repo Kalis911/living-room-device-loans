@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+  <h1>Home</h1>
+  <p>Hello {{ user.name }}.</p>
+  {% if user.is_admin() %}
+    <p>You are an admin: you can add, view, check out, edit, return and delete devices.</p>
+  {% else %}
+    <p>You are a regular user: you can add, view and check out devices, and edit their model names.</p>
+  {% endif %}
+  <p><a href="{{ url_for('devices') }}">View all devices</a></p>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Add device{% endblock %}
+{% block content %}
+  <h1>Add a device</h1>
+  <p>New devices start as available. They can be lent to someone afterwards.</p>
+  <form method="post">
+    <label for="asset_tag">Asset tag (e.g. LR-0011)</label>
+    <input id="asset_tag" name="asset_tag" value="{{ asset_tag }}" maxlength="7" required>
+
+    <label for="model_name">Model name (e.g. PlayStation 4)</label>
+    <input id="model_name" name="model_name" value="{{ model_name }}" maxlength="50" required>
+
+    <button type="submit">Add device</button>
+  </form>
+  <p><a href="{{ url_for('devices') }}">Back to devices</a></p>
+{% endblock %}

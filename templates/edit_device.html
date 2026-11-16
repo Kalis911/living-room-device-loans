@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Edit device{% endblock %}
+{% block content %}
+  <h1>Edit {{ device.asset_tag }}</h1>
+  <!-- The asset tag cannot be changed: it is printed on the device's label -->
+  <form method="post">
+    <label for="model_name">Model name</label>
+    <input id="model_name" name="model_name" value="{{ model_name }}" maxlength="50" required>
+
+    {% if device.is_checked_out() %}
+      <p>On loan to {{ device.assigned_to_name }} ({{ device.assigned_to_alias }})
+         since {{ device.checked_out_date.strftime("%d %b %Y") }}.</p>
+
+      {% if user.is_admin() %}
+        <label for="desk_location">Desk location</label>
+        <input id="desk_location" name="desk_location" value="{{ desk_location }}" maxlength="20" required>
+
+        <label for="due_date">Due back on</label>
+        <input id="due_date" name="due_date" type="date" value="{{ due_date }}" required>
+      {% else %}
+        <!-- Regular users can see the loan details but not change them -->
+        <p>Desk: {{ device.desk_location }}<br>
+           Due back: {{ device.due_date.strftime("%d %b %Y") }}</p>
+        <p>Only an admin can change the desk or due date.</p>
+      {% endif %}
+    {% else %}
+      <p>This device is available, so it has no desk or due date.</p>
+    {% endif %}
+
+    <button type="submit">Save changes</button>
+  </form>
+  <p><a href="{{ url_for('devices') }}">Back to devices</a></p>
+{% endblock %}

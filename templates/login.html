@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+  <h1>Log in</h1>
+  <form method="post">
+    <label for="alias">Alias</label>
+    <input id="alias" name="alias" value="{{ alias }}" required>
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required>
+
+    <button type="submit">Log in</button>
+  </form>
+  <p>No account yet? <a href="{{ url_for('register') }}">Register</a></p>
+{% endblock %}

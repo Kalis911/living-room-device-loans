@@ -1,0 +1,21 @@
+# render.yaml - tells Render (the free hosting website) how to run the app
+services:
+  - type: web
+    name: living-room-device-loans
+    runtime: python
+    plan: free
+    # Install the libraries listed in requirements.txt
+    buildCommand: pip install -r requirements.txt
+    # gunicorn is a proper web server for live websites (python app.py is
+    # only for testing on your own computer)
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      # Render makes a long random secret key for us
+      - key: SECRET_KEY
+        generateValue: true
+      # sync: false means Render asks you to type this in yourself,
+      # so the password is never saved in the code
+      - key: SEED_PASSWORD
+        sync: false

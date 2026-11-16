@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+  <h1>Register</h1>
+  <p>New accounts are regular users. An admin can change this later.</p>
+  <form method="post">
+    <label for="name">Full name</label>
+    <input id="name" name="name" value="{{ name }}" maxlength="50" required>
+
+    <label for="alias">Alias (lowercase letters and numbers, e.g. janedoe)</label>
+    <input id="alias" name="alias" value="{{ alias }}" maxlength="20" required>
+
+    <label for="password">Password (at least 8 characters, with a letter and a number)</label>
+    <input id="password" name="password" type="password" required>
+
+    <label for="confirm">Type the password again</label>
+    <input id="confirm" name="confirm" type="password" required>
+
+    <button type="submit">Register</button>
+  </form>
+  <p>Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+{% endblock %}

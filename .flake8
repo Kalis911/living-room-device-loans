@@ -1,0 +1,6 @@
+# .flake8 - settings for the Flake8 style checker
+[flake8]
+# PEP 8 suggests 79 characters, but says a team may agree on up to 99.
+# 99 keeps the SQL and HTML-related lines readable without lots of wrapping.
+max-line-length = 99
+exclude = .venv, __pycache__

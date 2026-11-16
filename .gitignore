@@ -1,0 +1,6 @@
+app.log
+.venv/
+__pycache__/
+.pytest_cache/
+# The database is created on the live website, so it is not uploaded
+devices.db

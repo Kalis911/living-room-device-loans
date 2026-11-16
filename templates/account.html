@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}My account{% endblock %}
+{% block content %}
+  <h1>My account</h1>
+  <p>Alias: <strong>{{ user.alias }}</strong> (this cannot be changed because you log in with it)</p>
+  <p>Role: <strong>{{ user.role }}</strong></p>
+  <form method="post">
+    <label for="name">Full name</label>
+    <input id="name" name="name" value="{{ name }}" maxlength="50" required>
+    <button type="submit">Save changes</button>
+  </form>
+{% endblock %}
